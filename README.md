@@ -1,6 +1,6 @@
 # stdf 
 
-stdf is a library for simple java textual data format like 
+stdf is a java library for simple java textual data format like 
 xml. With it, you can store data with the tag-value 
 system into simple plain/text files with a .sdb extension.
 
