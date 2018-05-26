@@ -86,7 +86,7 @@ public class Example {
         DataReader dataReader = null;
 
         try {
-            dataReader = new DataReader(new File("/home/edgelord/sjgl testing/stdf/data.sdb"));
+            dataReader = new DataReader(new File("/path/to/file.sdb"));
         } catch (IOException e) {
             e.printStackTrace();
         }
