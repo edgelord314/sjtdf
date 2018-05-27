@@ -25,11 +25,22 @@ public class DataWriter {
         this.fileWriter = fileWriter;
     }
 
+    /**
+    * Adds the given Species to the list of Species which will be written
+    * to the file when requested
+    *
+    * @param  species  the Species which should be added to the list
+    */
     public void addSpecies(Species species){
 
         speciesList.add(species);
     }
 
+    /**
+    * Writes the content off all Species from the list speciesList and their 
+    * subspecies to the file file. With that, all existing content off the file
+    * will be overwritten.
+    */
     public void syncFile() throws IOException {
 
         for (Species species : speciesList){
