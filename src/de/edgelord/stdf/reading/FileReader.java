@@ -11,7 +11,14 @@ public class FileReader {
     public FileReader(File file) {
         this.file = file;
     }
-
+    
+    /**
+    * Returns the whole content of the file given in the constructor, by using a Scanner
+    * and appending each line to a StringBuilder. 
+    *
+    * @return      the content of the file
+    */
+    
     public String readFile() throws IOException {
 
         Scanner scanner = new Scanner(file);
@@ -22,7 +29,7 @@ public class FileReader {
 
         return stringBuilder.toString();
     }
-
+    
     public File getFile() {
         return file;
     }
