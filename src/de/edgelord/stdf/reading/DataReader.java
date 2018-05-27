@@ -30,10 +30,23 @@ public class DataReader {
         fileName = file.getName().replace(".sdb", "");
     }
 
+    /**
+    * Returns a Species with the given name and content by finding it in the File. 
+     *
+     * @param  speciesName  the Species name 
+     * @return      the Secies with proper name and content
+     * @see         Species
+     */
     public Species getSpecies(String speciesName) {
         return new Species(speciesName, splitString(fileContent, getSpeciesBegin(speciesName), getSpeciesEnd(speciesName)));
     }
 
+    /**
+     * Returns the "Main"species by finding the Species that name is the name of the file without the .sdb extension
+    *
+    * @return      the "Main"species with its proper content
+    * @see         Species
+    */
     public Species getMainSpecies() {
         return new Species(fileName, splitString(fileContent, getSpeciesBegin(fileName), getSpeciesEnd(fileName)));
     }
@@ -48,12 +61,18 @@ public class DataReader {
         return "{*" + speciesName + "}";
     }
 
+    /**
+    * Returns the value of a specific tag within the whole file. 
+     *
+    * @param  tag  the name of the tag whose value gets returned
+    * @return      the value of the specific tag
+    */
     public String getTagValue(String tag){
 
         return splitString(fileContent, "(" + tag + ")", "(*" + tag + ")");
     }
 
-    public String splitString(String base, String start, String end) {
+    private String splitString(String base, String start, String end) {
 
         return base.substring(base.lastIndexOf(start) + start.length(), base.lastIndexOf(end));
     }

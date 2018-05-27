@@ -12,6 +12,12 @@ public class ReformatFile {
     public ReformatFile() {
     }
 
+    /**
+    * Makes the given file (use for .sdb only) easier readable for humans 
+    * by adding proper word wraps and spaces
+    *
+    * @param  file  the file which should be reformatted, use .sdb files only!
+    */
     public static void reformat(File file) throws IOException {
 
         FileReader fileReader = new FileReader(file);
@@ -22,7 +28,7 @@ public class ReformatFile {
         StringBuilder reformattedContent = new StringBuilder((int) (content.length() + (content.length() * 0.1)));
 
         /*
-            Adding \n where necessary
+            Adding word wraps where necessary
          */
 
         int index = 0;

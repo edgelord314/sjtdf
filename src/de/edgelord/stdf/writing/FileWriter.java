@@ -12,6 +12,12 @@ public class FileWriter {
         this.file = file;
     }
 
+    /**
+    * Overrides the existing content of the file file with the given text.
+    * If the file doesn't exist, it will be created.
+    *
+    * @param  text the text which the content of the file should be overriden with
+    */
     public void writeThrough(String text) throws IOException {
 
         if(!file.exists())
