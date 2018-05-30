@@ -21,13 +21,7 @@ public class FileReader {
     
     public String readFile() throws IOException {
 
-        Scanner scanner = new Scanner(file);
-        StringBuilder stringBuilder = new StringBuilder();
-
-        while (scanner.hasNextLine())
-            stringBuilder.append(scanner.nextLine());
-
-        return stringBuilder.toString();
+        return Files.lines(file.toPath(), StandardCharsets.UTF_8).collect(Collectors.joining(System.lineSeparator()));
     }
     
     public File getFile() {
