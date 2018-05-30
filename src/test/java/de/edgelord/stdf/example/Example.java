@@ -1,4 +1,4 @@
-package example;
+package de.edgelord.stdf.example;
 
 
 import de.edgelord.stdf.Species;
