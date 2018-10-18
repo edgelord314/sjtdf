@@ -14,19 +14,21 @@ import java.util.List;
 
 public class Example {
 
-    public static void main(String[] args){
+    private static String pathToFile = "/Users/edgelord/file.sdb";
+
+    public static void main(String[] args) throws IOException {
 
         /*
-        Write information to file
+        Write information to file. Notice that all spaces you want to have in the data must be written as "*_*"
          */
 
-        DataWriter dataWriter = new DataWriter(new File("/path/to/file.sdb"));
+        DataWriter dataWriter = new DataWriter(new File(pathToFile));
 
         Species mainSpecies = new Species("data", "");
 
         mainSpecies.addTag("number", "314");
         mainSpecies.addTag("text", "pi");
-        mainSpecies.addTag("combination", "pi = 314");
+        mainSpecies.addTag("combination", "pi*_*=*_*314");
 
         Species dataEntry = mainSpecies.addSubSpecies("dataEntry");
 
@@ -48,7 +50,7 @@ public class Example {
          */
 
         try {
-            ReformatFile.reformat(new File("/path/to/file.sdb"));
+            ReformatFile.reformat(new File(pathToFile));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,20 +88,20 @@ public class Example {
         DataReader dataReader = null;
 
         try {
-            dataReader = new DataReader(new File("/path/to/file.sdb"));
+            dataReader = new DataReader(new File(pathToFile));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Species reddenData = dataReader.getSpecies("data");
-        Species reddenDataEntry = dataReader.getSpecies("dataEntry");
+        Species readData = dataReader.getSpecies("data");
+        Species readDataEntry = dataReader.getSpecies("dataEntry");
 
-        System.out.println("number: " + reddenData.getTagValue("number"));
-        System.out.println("text: " + reddenData.getTagValue("text"));
-        System.out.println("combination: " + reddenData.getTagValue("combination"));
-        System.out.println("health: " + reddenDataEntry.getTagValue("health"));
-        System.out.println("score: " + reddenDataEntry.getTagValue("score"));
-        System.out.println("highscore: " + reddenDataEntry.getTagValue("highscore"));
+        System.out.println("number: " + readData.getTagValue("number"));
+        System.out.println("text: " + readData.getTagValue("text"));
+        System.out.println("combination: " + readData.getTagValue("combination"));
+        System.out.println("health: " + readDataEntry.getTagValue("health"));
+        System.out.println("score: " + readDataEntry.getTagValue("score"));
+        System.out.println("highscore: " + readDataEntry.getTagValue("highscore"));
 
         /*
         Output is now:
@@ -116,8 +118,8 @@ public class Example {
         But how do you work with that? The values are only Strings, and what's with that tag "items?"! Well, just watch:
          */
 
-        int pi = ValueToDataConverter.convertToInteger(reddenData, "number");
-        int score = ValueToDataConverter.convertToInteger(reddenDataEntry, "score");
+        int pi = ValueToDataConverter.convertToInteger(readData, "number");
+        int score = ValueToDataConverter.convertToInteger(readDataEntry, "score");
 
         System.out.println("pi*score: " + (pi + score));
 

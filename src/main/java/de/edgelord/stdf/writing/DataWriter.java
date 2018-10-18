@@ -9,19 +9,19 @@ import java.util.LinkedList;
 public class DataWriter {
 
     private LinkedList<Species> speciesList = new LinkedList<>();
-    private File file;
     private FileWriter fileWriter;
     private String syntax = "";
 
-    public DataWriter(File file){
-
-        this.file = file;
-        this.fileWriter = new FileWriter(file);
+    public DataWriter(File file) throws IOException {
+        this(new FileWriter(file));
     }
 
-    public DataWriter(FileWriter fileWriter){
+    public DataWriter(FileWriter fileWriter) throws IOException {
 
-        this.file = fileWriter.getFile();
+        if (!fileWriter.getFile().exists()) {
+            fileWriter.getFile().createNewFile();
+        }
+
         this.fileWriter = fileWriter;
     }
 

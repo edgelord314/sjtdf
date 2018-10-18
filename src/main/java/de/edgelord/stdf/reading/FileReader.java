@@ -23,6 +23,10 @@ public class FileReader {
     */
     
     public String readFile() throws IOException {
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
         return Files.lines(file.toPath(), StandardCharsets.UTF_8).collect(Collectors.joining(System.lineSeparator()));
     }
     

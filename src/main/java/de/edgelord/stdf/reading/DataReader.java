@@ -7,27 +7,24 @@ import java.io.IOException;
 
 public class DataReader {
 
-    private File file;
     private FileReader fileReader;
     private String fileContent;
     private String fileName;
 
     public DataReader(File file) throws IOException {
 
-        this.file = file;
-        this.fileReader = new FileReader(file);
-        fileContent = fileReader.readFile();
-        fileContent = fileContent.replaceAll(" ", "");
-        fileName = file.getName().replace(".sdb", "");
+        this(new FileReader(file));
     }
 
     public DataReader(FileReader fileReader) throws IOException {
 
         this.fileReader = fileReader;
-        this.file = fileReader.getFile();
         fileContent = fileReader.readFile();
+        // get rid of all ' '
         fileContent = fileContent.replaceAll(" ", "");
-        fileName = file.getName().replace(".sdb", "");
+        // add a ' ' for every *_*
+        fileContent = fileContent.replace("*_*", " ");
+        fileName = fileReader.getFile().getName().replace(".sdb", "");
     }
 
     /**
