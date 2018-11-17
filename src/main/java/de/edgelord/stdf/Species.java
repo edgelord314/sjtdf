@@ -84,7 +84,7 @@ public class Species {
     * Creates the Species with the given name within the Species and adds it to the list,
     * which will be written to the file if requested and retuns it.
     *
-    * @param  species name of the Species wich should be returned and added to the list
+    * @param  name name of the Species which should be returned and added to the list
     * @return  the created Species with the given name
     */
     public Species addSubSpecies(String name) {

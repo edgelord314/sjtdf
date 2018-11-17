@@ -7,9 +7,10 @@ import java.io.IOException;
 
 public class DataReader {
 
-    private FileReader fileReader;
     private String fileContent;
     private String fileName;
+
+    public static String SDB_FILE_EXTENSION = ".sdb";
 
     public DataReader(File file) throws IOException {
 
@@ -18,20 +19,19 @@ public class DataReader {
 
     public DataReader(FileReader fileReader) throws IOException {
 
-        this.fileReader = fileReader;
         fileContent = fileReader.readFile();
         // get rid of all ' '
         fileContent = fileContent.replaceAll(" ", "");
         // add a ' ' for every *_*
         fileContent = fileContent.replace("*_*", " ");
-        fileName = fileReader.getFile().getName().replace(".sdb", "");
+        fileName = fileReader.getFile().getName().replace(SDB_FILE_EXTENSION, "");
     }
 
     /**
     * Returns a Species with the given name and content by finding it in the File. 
      *
      * @param  speciesName  the Species name 
-     * @return      the Secies with proper name and content
+     * @return      the Species with proper name and content
      * @see         Species
      */
     public Species getSpecies(String speciesName) {
