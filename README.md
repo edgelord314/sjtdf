@@ -4,7 +4,7 @@ stdf is a java library for simple java textual data format like
 xml. With it, you can store data with the tag-value 
 system into simple plain/text files with a .sdb extension.
 
-The file ist split into 3 different types of text:
+The file is split into 3 different types of text:
 
 The species, the tags and the values. 
 
