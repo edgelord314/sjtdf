@@ -75,9 +75,9 @@ public class Species {
     * @param  tag  the name of the tag which should be added
     * @param  value  the value of the tag which should be added
     */
-    public void addTag(String tag, String value) {
+    public void addTag(String tag, Object value) {
 
-        content = "(" + tag + ")" + value + "(*" + tag + ")" + content;
+        content = "(" + tag + ")" + value.toString() + "(*" + tag + ")" + content;
     }
 
     /**
