@@ -38,7 +38,7 @@ public class Example {
 
         mainSpecies.addTag("number", "314");
         mainSpecies.addTag("text", "pi");
-        mainSpecies.addTag("combination", "pi*_*=*_*314");
+        mainSpecies.addTag("combination", "pi = 314");
 
         Species dataEntry = mainSpecies.addSubSpecies("dataEntry");
 
@@ -131,7 +131,7 @@ public class Example {
         int pi = ValueToDataConverter.convertToInteger(readData, "number");
         int score = ValueToDataConverter.convertToInteger(readDataEntry, "score");
 
-        System.out.println("pi*score: " + (pi + score));
+        System.out.println("pi + score: " + (pi + score));
 
         /*
         You can convert into: boolean, int, double, short, long, char

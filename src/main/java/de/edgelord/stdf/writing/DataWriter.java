@@ -55,8 +55,6 @@ public class DataWriter {
 
         Species systemSpecies = new Species(SYSTEM_SPECIES);
 
-        systemSpecies.addTag(VERSION_TAG, DataReader.STDF_VERSION);
-
         if (isMaksSpaces()) {
             systemSpecies.addTag(MASK_SPACES_TAG, "true");
         } else {
@@ -69,11 +67,13 @@ public class DataWriter {
             systemSpecies.addTag(BACKWARDS_COMPATIBLE_TAG, "false");
         }
 
-        if (isMaksSpaces()) {
+        if (isForwardCompatible()) {
             systemSpecies.addTag(FORWARD_COMPATIBLE_TAG, "true");
         } else {
             systemSpecies.addTag(FORWARD_COMPATIBLE_TAG, "false");
         }
+
+        systemSpecies.addTag(VERSION_TAG, DataReader.STDF_VERSION);
 
         syntax += systemSpecies.getSyntax();
 
