@@ -19,10 +19,20 @@ public class Example {
     public static void main(String[] args) throws IOException {
 
         /*
-        Write information to file. Notice that all spaces you want to have in the data must be written as "*_*"
+        Write information to file. Please specify with DataWriter#setMaskSpaces(boolean) whether all spaces should remain
+        on the next reading from the file, or all spaces should be deleted and all "*_*" should be replaces with spaces afterwards.
+        Use the latter for visual reasons.
          */
 
         DataWriter dataWriter = new DataWriter(new File(pathToFile));
+
+        /*
+        Use
+        DataWriter#setForwardCompatible(boolean)
+        and
+        DataWriter#setBackwardsCompatible(boolean)
+        to make sure that you file is always read correctly.
+         */
 
         Species mainSpecies = new Species("data", "");
 

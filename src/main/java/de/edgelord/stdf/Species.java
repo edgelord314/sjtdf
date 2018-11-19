@@ -14,6 +14,11 @@ public class Species {
         this.name = name;
     }
 
+    public Species(String name) {
+        this.content = "";
+        this.name = name;
+    }
+
     public String getContent() {
         return content;
     }
