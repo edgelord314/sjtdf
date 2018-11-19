@@ -17,7 +17,7 @@ public class DataWriter {
     private boolean backwardsCompatible = true;
 
     public static final String SYSTEM_SPECIES = "stdf";
-    public static final String MASK_SPACES_TAG = "mask-sapces";
+    public static final String MASK_SPACES_TAG = "mask-spaces";
     public static final String VERSION_TAG = "version";
     public static final String FORWARD_COMPATIBLE_TAG = "forward-compatible";
     public static final String BACKWARDS_COMPATIBLE_TAG = "backwards-compatible";
