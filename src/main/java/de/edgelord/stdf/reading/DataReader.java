@@ -12,7 +12,7 @@ public class DataReader {
     private String fileName;
 
     public static String SDB_FILE_EXTENSION = ".sdb";
-    public static final String STDF_VERSION = "1.3";
+    public static final String STDF_VERSION = "1.2";
 
     public DataReader(File file) throws IOException {
 

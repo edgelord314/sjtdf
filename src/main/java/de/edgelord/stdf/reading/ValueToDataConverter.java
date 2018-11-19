@@ -102,4 +102,20 @@ public class ValueToDataConverter {
             throw e;
         }
     }
+
+    /**
+     * Converts the value of the given tag in the given Species to a float and returns it.
+     * It simply parses the value by using Float.valueOf(String).
+     *
+     * @param  species  the Species in which contains the tag
+     * @param  tag  the tag which should be converted
+     * @return      the converted float
+     */
+    public static float convertToFloat(Species species, String tag) {
+        try {
+            return Float.valueOf(species.getTagValue(tag));
+        } catch(Exception e){
+            throw e;
+        }
+    }
 }
