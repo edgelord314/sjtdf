@@ -10,29 +10,46 @@ public class DataReader {
 
     private String fileContent;
     private String fileName;
+    private File file;
 
     public static String SDB_FILE_EXTENSION = ".sdb";
-    public static final String STDF_VERSION = "1.2";
+    public static final String STDF_VERSION = "1.3";
+
+    private boolean containsSystemSpecies;
 
     public DataReader(File file) throws IOException {
-
         this(new FileReader(file));
     }
 
     public DataReader(FileReader fileReader) throws IOException {
 
-        fileContent = fileReader.readFile();
+        this.fileContent = fileReader.readFile();
+        this.file = fileReader.getFile();
 
-        if ((compareVersions(DataReader.STDF_VERSION, getFileVersion()) == -1 && !isBackwardsCompatible()) || (compareVersions(DataReader.STDF_VERSION, getFileVersion()) == 1 && !isForwardCompatible())) {
-            throw new RuntimeException("The file " + fileReader.getFile().getName() + " i snot compatible with this version of stdf!");
-        }
+        containsSystemSpecies = containsSystemSpecies();
 
-        if (maskSpaces()) {
-            fileContent = fileContent.replaceAll(" ", "");
-            fileContent = fileContent.replace("*_*", " ");
+        if (containsSystemSpecies) {
+            if ((compareVersions(DataReader.STDF_VERSION, getFileVersion()) == -1 && !isBackwardsCompatible()) || (compareVersions(DataReader.STDF_VERSION, getFileVersion()) == 1 && !isForwardCompatible())) {
+                throw new RuntimeException("The file " + fileReader.getFile().getName() + " is not compatible with this version of stdf!");
+            }
+
+            if (shouldMaskSpaces()) {
+                maskSpaces();
+            }
+        } else {
+            maskSpaces();
         }
 
         fileName = fileReader.getFile().getName().replace(SDB_FILE_EXTENSION, "");
+    }
+
+    private void maskSpaces() {
+        fileContent = fileContent.replaceAll(" ", "");
+        fileContent = fileContent.replace("*_*", " ");
+    }
+
+    public DataWriter getDataWriter() throws IOException {
+        return new DataWriter(file);
     }
 
     /**
@@ -56,33 +73,70 @@ public class DataReader {
         return new Species(fileName, splitString(fileContent, getSpeciesBegin(fileName), getSpeciesEnd(fileName)));
     }
 
+    private boolean containsSystemSpecies() {
+        if (fileContent.contains(getAsSpeciesStart(DataWriter.SYSTEM_SPECIES)) && fileContent.contains(getAsSpeciesEnd(DataWriter.SYSTEM_SPECIES))) {
+
+            if (fileContent.contains(getAsTagStart(DataWriter.MASK_SPACES_TAG)) && fileContent.contains(getAsTagEnd(DataWriter.MASK_SPACES_TAG))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static String getAsSpeciesStart(String name) {
+        return "{" + name + "}";
+    }
+
+    public static String getAsSpeciesEnd(String name) {
+        return "{*" + name + "}";
+    }
+
+    public static String getAsTagStart(String name) {
+        return "(" + name + ")";
+    }
+
+    public static String getAsTagEnd(String name) {
+        return "(*" + name + ")";
+    }
+
     private Species getSystemSpecies() {
         return getSpecies(DataWriter.SYSTEM_SPECIES);
     }
 
-    public boolean maskSpaces() {
-        if (getSystemSpecies().getTagValue(DataWriter.MASK_SPACES_TAG).equals("true")) {
-            return true;
+    public boolean shouldMaskSpaces() {
+        if (containsSystemSpecies) {
+            if (getSystemSpecies().getTagValue(DataWriter.MASK_SPACES_TAG).equals("true")) {
+                return true;
+            }
         }
 
         return false;
     }
 
     public String getFileVersion() {
-        return getSystemSpecies().getTagValue("version");
+        if (containsSystemSpecies) {
+            return getSystemSpecies().getTagValue("version");
+        }
+
+        return "0.0.0";
     }
 
     public boolean isForwardCompatible() {
-        if (getSystemSpecies().getTagValue(DataWriter.FORWARD_COMPATIBLE_TAG).equals("true")) {
-            return true;
+        if (containsSystemSpecies) {
+            if (getSystemSpecies().getTagValue(DataWriter.FORWARD_COMPATIBLE_TAG).equals("true")) {
+                return true;
+            }
         }
 
         return false;
     }
 
     public boolean isBackwardsCompatible() {
-        if (getSystemSpecies().getTagValue(DataWriter.BACKWARDS_COMPATIBLE_TAG).equals("true")) {
-            return true;
+        if (containsSystemSpecies) {
+            if (getSystemSpecies().getTagValue(DataWriter.BACKWARDS_COMPATIBLE_TAG).equals("true")) {
+                return true;
+            }
         }
 
         return false;
