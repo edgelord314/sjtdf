@@ -123,4 +123,16 @@ public class DataWriter {
     public void setBackwardsCompatible(boolean backwardsCompatible) {
         this.backwardsCompatible = backwardsCompatible;
     }
+
+    public FileWriter getFileWriter() {
+        return fileWriter;
+    }
+
+    public void setFileWriter(FileWriter fileWriter) {
+        this.fileWriter = fileWriter;
+    }
+
+    public File getFile() {
+        return getFileWriter().getFile();
+    }
 }

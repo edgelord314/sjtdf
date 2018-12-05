@@ -185,4 +185,16 @@ public class DataReader {
 
         return 0;
     }
+
+    public String getFileContent() {
+        return fileContent;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public boolean isContainsSystemSpecies() {
+        return containsSystemSpecies;
+    }
 }
