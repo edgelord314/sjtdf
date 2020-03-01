@@ -25,7 +25,7 @@ public class ReformatFile {
 
         String content = fileReader.readFile();
 
-        StringBuilder reformattedContent = new StringBuilder((int) (content.length() + (content.length() * 0.1)));
+        StringBuilder reformattedContent = new StringBuilder();
 
         /*
             Adding word wraps where necessary
@@ -39,7 +39,6 @@ public class ReformatFile {
             char currentChar = content.charAt(index);
 
             if (currentChar == '}') {
-
                 reformattedContent.append("}\n\n");
             } else if (currentChar == '(') {
 
@@ -105,7 +104,7 @@ public class ReformatFile {
                 currentLevel = currentLevel + 4;
             }
 
-            reformattedContent.append(currentLine + "\n");
+            reformattedContent.append(currentLine).append("\n");
         }
 
         fileWriter.writeThrough(reformattedContent.toString());

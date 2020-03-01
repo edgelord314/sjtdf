@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Example {
 
-    private static String pathToFile = "/Users/edgelord/file.sdb";
+    private static String pathToFile = System.getProperty("user.home") + "/file.sdb";
 
     public static void main(String[] args) throws IOException {
 
